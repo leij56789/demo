@@ -1,5 +1,6 @@
 package com.company.demo;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.company.demo.common.BusinessException;
 import com.company.demo.common.Result;
 import com.company.demo.entity.User;
@@ -45,6 +46,16 @@ public class UserController {
     public Result<String> delete(@PathVariable Long id){
         userService.deleteUser(id);
         return Result.success("删除成功",null);
+
+    }
+    //分页查询
+    @GetMapping("/page")
+    public Result<Page<User>> listUserByPage(
+            @RequestParam(defaultValue = "1") int pageNum,
+            @RequestParam(defaultValue = "10") int pageSize,
+            @RequestParam(required = false) String keyword){
+        Page<User> page = userService.getUsersPage(pageNum, pageSize, keyword);
+        return Result.success(page);
 
     }
 }

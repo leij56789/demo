@@ -41,32 +41,26 @@
             <artifactId>mysql-connector-j</artifactId>
             <scope>runtime</scope>
         </dependency>
-
-        <!-- MyBatis Plus（简化数据库操作）-->
-        <!-- 将这个依赖 -->
-        <!--
+<!--        处理字符串-->
         <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.5.7</version>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.8.40</version>
         </dependency>
-        -->
-
-        <!-- 替换成这个（适配 Spring Boot 3.x）-->
-        <!-- 将这个依赖 -->
-        <!--
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.5.7</version>
-        </dependency>
-        -->
 
         <!-- 替换成这个（适配 Spring Boot 3.x）-->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-spring-boot4-starter</artifactId>
             <version>3.5.16</version>
+        </dependency>
+        <!-- MyBatis-Plus for Spring Boot 4.x -->
+
+        <!-- 分页插件依赖（必须，用于 SQL 解析）-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-jsqlparser</artifactId>
+            <version>3.5.15</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

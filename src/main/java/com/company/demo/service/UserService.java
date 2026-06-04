@@ -1,5 +1,8 @@
 package com.company.demo.service;
 
+import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.company.demo.common.BusinessException;
 import com.company.demo.entity.User;
 import com.company.demo.mapper.UserMapper;
@@ -43,5 +46,15 @@ public class UserService {
 
     public boolean existUser(Long id) {
         return userMapper.selectById(id)!=null;
+    }
+    //分页查询用户
+    public Page<User> getUsersPage(int pageNum,int pageSize,String keyword){
+        Page<User> page = new Page<>(pageNum, pageSize);
+        //条件构造器
+        LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
+        //name like '%keyword%'
+        wrapper.like(StrUtil.isNotBlank(keyword),User::getName,keyword);
+        wrapper.orderByDesc(User::getId);
+        return userMapper.selectPage(page,wrapper);
     }
 }
