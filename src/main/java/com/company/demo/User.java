@@ -1,5 +1,9 @@
 package com.company.demo;
-
+/**
+ * @author jiaolei
+ * @date 2026/6/4 15:59
+ * @description 
+ */
 public class User {
     private Long id;
     private String name;

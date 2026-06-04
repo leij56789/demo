@@ -6,7 +6,11 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-
+/**
+ * @author jiaolei
+ * @date 2026/6/4 15:58
+ * @description 
+ */
 @TableName("user")
 public class User {
     @TableId(type= IdType.AUTO)

@@ -3,7 +3,11 @@ package com.company.demo;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
+/**
+ * @author jiaolei
+ * @date 2026/6/4 15:59
+ * @description 
+ */
 public class LearnStream {
     public static void main(String[] args) {
 //        List<String> list = Arrays.asList("a", "b", "c");

@@ -1,5 +1,6 @@
 package com.company.demo.service;
 
+import cn.hutool.core.lang.ClassScanner;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -10,7 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+/**
+ * @author jiaolei
+ * @date 2026/6/4 18:03
+ * @description 
+ */
 @Service
 public class UserService {
     @Autowired

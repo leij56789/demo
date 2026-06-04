@@ -4,9 +4,12 @@ import com.company.demo.entity.User;
 
 import java.util.List;
 
-/*
-* 统一响应结果类
-* */
+
+/**
+ * @author jiaolei
+ * @date 2026/6/4 15:57
+ * @description 统一响应结果类
+ */
 public class Result<T> {
     private Integer code;
     private String message;

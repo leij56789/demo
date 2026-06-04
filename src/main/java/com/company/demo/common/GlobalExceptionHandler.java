@@ -1,10 +1,16 @@
 package com.company.demo.common;
 
+import lombok.NoArgsConstructor;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
+/**
+ * @author jiaolei
+ * @date 2026/6/4 15:57
+ * @description 
+ */
 @RestControllerAdvice
+@NoArgsConstructor
 public class GlobalExceptionHandler {
     /*
     * 处理业务异常（如：用户不存在）

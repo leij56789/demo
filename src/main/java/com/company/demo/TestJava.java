@@ -2,7 +2,11 @@ package com.company.demo;
 
 import java.util.Arrays;
 import java.util.List;
-
+/**
+ * @author jiaolei
+ * @date 2026/6/4 18:03
+ * @description 
+ */
 public class TestJava {
     public static void main(String[] args) {
         List<String> list = Arrays.asList("a", "b", "c");
