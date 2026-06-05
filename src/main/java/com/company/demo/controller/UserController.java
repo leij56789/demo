@@ -1,7 +1,9 @@
-package com.company.demo;
+package com.company.demo.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.company.demo.common.BusinessException;
+import com.company.demo.annotation.Log;
+import com.company.demo.annotation.PassToken;
+import com.company.demo.annotation.RateLimit;
 import com.company.demo.common.Result;
 import com.company.demo.entity.User;
 import com.company.demo.service.UserService;
@@ -10,6 +12,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,28 +25,35 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
+    //添加日志对象
     @Autowired
     private UserService userService;
-    @Operation(summary = "查询所有用户")
+
+    @PassToken
+//    @Operation(summary = "查询所有用户")
     @GetMapping("/list")
     public Result<List<User>> list(){
         List<User> allUsers = userService.getAllUsers();
         return Result.success(allUsers);
     }
-    @Operation(summary = "根据ID查询用户")
+    @PassToken
+//    @Operation(summary = "根据ID查询用户")
     @GetMapping("/{id}")
     public Result<User> getById(@Parameter(description="用户ID") @PathVariable Long id){
         User user = userService.getUserById(id);
         return Result.success();
     }
-    @Operation(summary = "新增用户")
+    @RateLimit(key="user:add",permitsPerSecond = 2.0)
+    @PassToken
+//    @Operation(summary = "新增用户")
     @PostMapping("/add")
     public Result<String> add(@Valid @RequestBody User user){
         userService.addUser(user);
         return Result.success("添加成功",null);
 
     }
-    @Operation(summary = "修改用户")
+    @PassToken
+//    @Operation(summary = "修改用户")
     @PutMapping("/update")
     public Result<String> update(@Valid @RequestBody User user){
         if(user.getId()==null){
@@ -53,7 +63,9 @@ public class UserController {
         return Result.success("修改成功",null);
 
     }
-    @Operation(summary = "删除用户")
+    @PassToken
+    @Log("查询用户")
+//    @Operation(summary = "删除用户")
     @DeleteMapping("/{id}")
     public Result<String> delete(@Parameter(description = "用户ID") @PathVariable Long id){
         userService.deleteUser(id);
@@ -61,7 +73,10 @@ public class UserController {
 
     }
     //分页查询
-    @Operation(summary = "分页查询用户",description="支持按姓名模糊搜索")
+    @RateLimit(key="user:page",permitsPerSecond=0.1)
+    @PassToken
+    @Log("分页查询用户")
+//    @Operation(summary = "分页查询用户",description="支持按姓名模糊搜索")
     @GetMapping("/page")
     public Result<Page<User>> listUserByPage(
             @Parameter(description = "页码，默认1") @RequestParam(defaultValue = "1") int pageNum,
@@ -69,6 +84,17 @@ public class UserController {
             @Parameter(description = "搜索关键词（姓名）")@RequestParam(required = false) String keyword){
         Page<User> page = userService.getUsersPage(pageNum, pageSize, keyword);
         return Result.success(page);
+    }
+    /*
+    * 批量删除用户
+    * */
 
+    @PassToken
+    @Log("批量删除用户")
+    @DeleteMapping("/deleteBatch")
+    @Transactional(rollbackFor = Exception.class)
+    public Result<String> deleteBatch(Long[] ids){
+        userService.deleteBatch(ids);
+        return Result.success("批量删除成功",null);
     }
 }
