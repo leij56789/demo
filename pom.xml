@@ -30,6 +30,17 @@
         <java.version>17</java.version>
     </properties>
     <dependencies>
+        <!-- RabbitMQ -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+<!--        actuator-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+            <version>4.0.6</version>
+        </dependency>
         <!-- Guava 限流工具 -->
         <dependency>
             <groupId>com.google.guava</groupId>

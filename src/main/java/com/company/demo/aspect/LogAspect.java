@@ -4,13 +4,16 @@ package com.company.demo.aspect;
 import com.company.demo.annotation.Log;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -109,6 +112,13 @@ public class LogAspect {
         }
     }
 
+    @Async("taskExecutor")  // 添加这个注解，异步执行
+    @AfterReturning("@annotation(log)")
+    public void afterReturning(JoinPoint point, Log log) {
+        // 原有的保存日志逻辑
+        System.out.println("异步保存日志: " + log.value());
+        // 实际项目中这里会保存到数据库
+    }
     /**
      * 获取 HttpServletRequest
      */

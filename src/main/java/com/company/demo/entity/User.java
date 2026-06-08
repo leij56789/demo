@@ -14,6 +14,7 @@ import jakarta.validation.constraints.NotNull;
 @TableName("user")
 public class User {
     @TableId(type= IdType.AUTO)
+//    @TableId(type=IdType.INPUT)
     private Long id;
 
     @NotBlank(message="姓名不能为空")
